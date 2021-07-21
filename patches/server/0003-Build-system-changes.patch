@@ -5,7 +5,7 @@ Subject: [PATCH] Build system changes
 
 
 diff --git a/build.gradle.kts b/build.gradle.kts
-index 8d27de2c9da08ca32ff18fc4b8b02ea583edfc1c..31343d49cf38063976e0f8c93264a4f3897f06fb 100644
+index fd782b6067e773c753ece52447b8b63caba7fc94..2a86a32df4b7faabf47109eb46cd05291f59e25d 100644
 --- a/build.gradle.kts
 +++ b/build.gradle.kts
 @@ -18,21 +18,24 @@ repositories {
@@ -45,7 +45,16 @@ index 8d27de2c9da08ca32ff18fc4b8b02ea583edfc1c..31343d49cf38063976e0f8c93264a4f3
          )
          for (tld in setOf("net", "com", "org")) {
              attributes("$tld/bukkit", "Sealed" to true)
-@@ -70,15 +74,23 @@ publishing {
+@@ -77,7 +81,7 @@ relocation {
+         "org.jline:jline-terminal-jansi" to "jline",
+         "commons-codec:commons-codec" to "org.apache.commons.codec",
+         "commons-io:commons-io" to "org.apache.commons.io",
+-        "it.unimi.dsi:fastutil" to "it.unimi",
++        //"it.unimi.dsi:fastutil" to "it.unimi", // Paper - don't relocate fastutil
+         "org.apache.commons:commons-lang3" to "org.apache.commons.lang3",
+         "org.ow2.asm:asm" to "org.objectweb.asm"
+     ).forEach { (owner, pack) ->
+@@ -102,9 +106,17 @@ relocation {
      }
  }
  
@@ -60,16 +69,9 @@ index 8d27de2c9da08ca32ff18fc4b8b02ea583edfc1c..31343d49cf38063976e0f8c93264a4f3
 +        rename { "pom.xml" }
 +    }
 +
-     val packageVersion = "1_17_R1"
-     relocate("org.bukkit.craftbukkit", "org.bukkit.craftbukkit.v$packageVersion") {
-         exclude("org.bukkit.craftbukkit.Main*")
-     }
-     listOf(
--        "jline", "it.unimi", "org.apache.commons.codec", "org.apache.commons.io",
-+        "jline", "org.apache.commons.codec", "org.apache.commons.io", // Paper - don't relocate fastutil
-         "org.apache.commons.lang3", "org.apache.http", "org.apache.maven", "org.codehaus.plexus",
-         "org.eclipse.aether", "org.eclipse.sisu", "org.objectweb.asm"
-     ).forEach { pack ->
+     for (relocation in relocation.relocations.get()) {
+         relocate(relocation.fromPackage, relocation.toPackage) {
+             for (exclude in relocation.excludes) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
 index b06a4c8f5e1dfcbda171910279d6861dc3d4d2e7..7f818c6bed25e0b793cca268b786f61440c429ef 100644
 --- a/src/main/java/org/bukkit/craftbukkit/Main.java
@@ -84,7 +86,7 @@ index b06a4c8f5e1dfcbda171910279d6861dc3d4d2e7..7f818c6bed25e0b793cca268b786f614
                      Calendar deadline = Calendar.getInstance();
                      deadline.add(Calendar.DAY_OF_YEAR, -7);
 diff --git a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
-index 93046379d0cefd5d3236fc59e698809acdc18f80..774556a62eb240da42e84db4502e2ed43495be17 100644
+index 93046379d0cefd5d3236fc59e698809acdc18f80..4e2e9e26aa8f27e9a7105d39c6c73ce707bc1a45 100644
 --- a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
 +++ b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
 @@ -11,7 +11,7 @@ public final class Versioning {
@@ -92,7 +94,7 @@ index 93046379d0cefd5d3236fc59e698809acdc18f80..774556a62eb240da42e84db4502e2ed4
          String result = "Unknown-Version";
  
 -        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/org.spigotmc/spigot-api/pom.properties");
-+        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/io.papermc.paper/paper-api/pom.properties");
++        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/io.papermc.paper/paper-api/pom.properties"); // Paper
          Properties properties = new Properties();
  
          if (stream != null) {
