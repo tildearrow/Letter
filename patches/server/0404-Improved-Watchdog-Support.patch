@@ -535,7 +535,7 @@ index 1ffb208094f521883ef0e23baf5fb29380b14273..4d271cae88c16ed2419f896c728fdff6
                  // Paper end
 @@ -118,7 +121,7 @@ public class WatchdogThread extends Thread
                  log.log( Level.SEVERE, "------------------------------" );
-                 log.log( Level.SEVERE, "Server thread dump (Look for plugins here before reporting to Paper!):" ); // Paper
+                 log.log( Level.SEVERE, "Server thread dump (Look for plugins here before reporting to Letter!):" ); // Letter
                  com.destroystokyo.paper.io.chunk.ChunkTaskManager.dumpAllChunkLoadInfo(); // Paper
 -                WatchdogThread.dumpThread( ManagementFactory.getThreadMXBean().getThreadInfo( MinecraftServer.getServer().serverThread.getId(), Integer.MAX_VALUE ), log );
 +                WatchdogThread.dumpThread( ManagementFactory.getThreadMXBean().getThreadInfo( server.serverThread.getId(), Integer.MAX_VALUE ), log );

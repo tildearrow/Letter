@@ -502,7 +502,7 @@ index 01c10ee7f4a1568a35101dd73c0049e24bfb3e00..472c466c8257bcd696184ac71019acd4
 +import javax.annotation.Nonnull; // Paper
 +
  public final class CraftServer implements Server {
-     private final String serverName = "Paper"; // Paper
+     private final String serverName = "Letter"; // Letter
      private final String serverVersion;
 @@ -2398,5 +2401,24 @@ public final class CraftServer implements Server {
      public boolean suggestPlayerNamesWhenNullTabCompletions() {

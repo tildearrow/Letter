@@ -1,0 +1,34 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Primorior <no@email>
+Date: Thu, 24 Jun 2021 03:56:07 -0400
+Subject: Server crash
+
+Stack trace
+https://paste.gg/p/anonymous/07b1a81ebef5480fa54cfe14e65078c7
+Plugin list
+AutoMessage, ChestShop, CMILib, CoreProtect, DiscordSRV, EssentialsX, FarmLimiter, Fe, GroupManager, Jobs, LandLord, Multiverse-Core, Multiverse-Nether-Portals, NerfPhantoms, NuVotifier, Paintball, Protocollib, SetMotd, SilkSpawners, SimpleVoteListener, SkQuery, Skript, Vault, VoidGenerator, WDLCompanion, WorldEdit, WorldGuard
+
+Actions to reproduce (if known)
+Just logged in and this happend.. switched back to Spigot and had no issues.
+
+Paper version
+Paper 46
+
+Agreements
+> I am running the latest version of Paper available from https://papermc.io/downloads.
+> I have searched for and ensured there isn't already an open issue regarding this.
+> My version of Minecraft is supported by Paper.
+Other
+No response
+
+diff --git a/src/main/java/net/minecraft/server/level/ChunkHolder.java b/src/main/java/net/minecraft/server/level/ChunkHolder.java
+index 3e004f391668865c0e6f1c38cef9661f7372fffe..4114c0fa58e41383b5469cbc6abb44416a7af247 100644
+--- a/src/main/java/net/minecraft/server/level/ChunkHolder.java
++++ b/src/main/java/net/minecraft/server/level/ChunkHolder.java
+@@ -242,6 +242,6 @@ public class ChunkHolder {
+     // Paper end - optimise isOutsideOfRange
+     long lastAutoSaveTime; // Paper - incremental autosave
+     long inactiveTimeStart; // Paper - incremental autosave
+ 
+     public ChunkHolder(ChunkPos pos, int level, LevelHeightAccessor world, LevelLightEngine lightingProvider, ChunkHolder.LevelChangeListener levelUpdateListener, ChunkHolder.PlayerProvider playersWatchingChunkProvider) {
+         this.futures = new AtomicReferenceArray(ChunkHolder.CHUNK_STATUSES.size());

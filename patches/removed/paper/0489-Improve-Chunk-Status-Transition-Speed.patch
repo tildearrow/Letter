@@ -35,24 +35,6 @@ scenario / path:
 
 Previously would have hopped to SERVER around 12+ times there extra.
 
-diff --git a/src/main/java/net/minecraft/server/level/ChunkHolder.java b/src/main/java/net/minecraft/server/level/ChunkHolder.java
-index 3e004f391668865c0e6f1c38cef9661f7372fffe..4114c0fa58e41383b5469cbc6abb44416a7af247 100644
---- a/src/main/java/net/minecraft/server/level/ChunkHolder.java
-+++ b/src/main/java/net/minecraft/server/level/ChunkHolder.java
-@@ -242,6 +242,13 @@ public class ChunkHolder {
-     // Paper end - optimise isOutsideOfRange
-     long lastAutoSaveTime; // Paper - incremental autosave
-     long inactiveTimeStart; // Paper - incremental autosave
-+    // Paper start - optimize chunk status progression without jumping through thread pool
-+    public boolean canAdvanceStatus() {
-+        ChunkStatus status = getChunkHolderStatus();
-+        ChunkAccess chunk = getAvailableChunkNow();
-+        return chunk != null && (status == null || chunk.getStatus().isOrAfter(getNextStatus(status)));
-+    }
-+    // Paper end
- 
-     public ChunkHolder(ChunkPos pos, int level, LevelHeightAccessor world, LevelLightEngine lightingProvider, ChunkHolder.LevelChangeListener levelUpdateListener, ChunkHolder.PlayerProvider playersWatchingChunkProvider) {
-         this.futures = new AtomicReferenceArray(ChunkHolder.CHUNK_STATUSES.size());
 diff --git a/src/main/java/net/minecraft/server/level/ChunkMap.java b/src/main/java/net/minecraft/server/level/ChunkMap.java
 index dd0f9ab476735e0a61533bdfed5868fa5f523b68..017ed8e1db45d49de67b17b5979721cfd57fb9c7 100644
 --- a/src/main/java/net/minecraft/server/level/ChunkMap.java

@@ -24,18 +24,6 @@ Massive update to light to improve performance and chunk loading/generation.
 7) Buffer non urgent tasks even if queueUpdate is called multiple times to improve efficiency.
 8) Fix NPE risk that crashes server in getting nibble data
 
-diff --git a/src/main/java/net/minecraft/server/level/ChunkHolder.java b/src/main/java/net/minecraft/server/level/ChunkHolder.java
-index 52fc256c0d4de63ba94625218661db397b6e704e..e3c8e7692e8ca005e98d4158de0c961087dfb199 100644
---- a/src/main/java/net/minecraft/server/level/ChunkHolder.java
-+++ b/src/main/java/net/minecraft/server/level/ChunkHolder.java
-@@ -773,6 +773,7 @@ public class ChunkHolder {
-                 ioPriority = com.destroystokyo.paper.io.PrioritizedTaskQueue.HIGH_PRIORITY;
-             }
-             chunkMap.level.asyncChunkTaskManager.raisePriority(pos.x, pos.z, ioPriority);
-+            chunkMap.level.getChunkSource().getLightEngine().queue.changePriority(pos.toLong(), this.queueLevel, priority); // Paper
-         }
-         if (this.queueLevel != priority) {
-             this.onLevelChange.onLevelChange(this.pos, () -> this.queueLevel, priority, p -> this.queueLevel = p); // use preferred priority
 diff --git a/src/main/java/net/minecraft/server/level/ChunkMap.java b/src/main/java/net/minecraft/server/level/ChunkMap.java
 index 017ed8e1db45d49de67b17b5979721cfd57fb9c7..42fd259f4492e539112b5bcb310aaaadab58a443 100644
 --- a/src/main/java/net/minecraft/server/level/ChunkMap.java
