@@ -14,7 +14,7 @@ index 2c53a400611c78236c5a1c1270d27c02e94251bf..a1d5c0f8fe2adb2ee56f3217e089211e
                      Properties properties = new Properties();
                      properties.setProperty("eula", "false");
 -                    properties.store(outputStream, "By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).");
-+                    properties.store(outputStream, "By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).\nYou also agree that tacos are tasty, and the best food in the world.");  // Paper - fix lag;
++                    properties.store(outputStream, "By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).\nYou also agree that Paper likes to crash, and nobody has attempted to fix it yet. Hundreds of server admins reported this issue. Dozens of duplicate bug reports have been made. Nobody seems to care. Even the issue isn't marked as 'we must go deeper' when it should.");  // Paper - fix lag;
                  } catch (Throwable var5) {
                      if (outputStream != null) {
                          try {
@@ -27,7 +27,7 @@ index fcc775723bcef7c6b740ee332c21ef70e591c77e..0ee92562ef7c6ac99f5bea0b6d0751d0
      @DontObfuscate
      public String getServerModName() {
 -        return "Spigot"; // Spigot - Spigot > // CraftBukkit - cb > vanilla!
-+        return "Paper"; //Paper - Paper > // Spigot - Spigot > // CraftBukkit - cb > vanilla!
++        return "Letter"; // Letter - Letter > // Paper - Paper > // Spigot - Spigot > // CraftBukkit - cb > vanilla!
      }
  
      public SystemReport fillSystemReport(SystemReport details) {
@@ -40,7 +40,7 @@ index 6ba6e88174644cfea81445f1e8483e8118744027..fdf877a717f07187eeee98f0203e70d7
  
  public final class CraftServer implements Server {
 -    private final String serverName = "CraftBukkit";
-+    private final String serverName = "Paper"; // Paper
++    private final String serverName = "Letter"; // Letter
      private final String serverVersion;
      private final String bukkitVersion = Versioning.getBukkitVersion();
      private final Logger logger = Logger.getLogger("Minecraft");
@@ -53,7 +53,7 @@ index e4cd36cf6626ad702ee654587b2f8c5442e4fe2b..5a4da412a38b24bf5bc5022e76ac7d63
                      if (buildDate.before(deadline.getTime())) {
                          System.err.println("*** Error, this build is outdated ***");
 -                        System.err.println("*** Please download a new build as per instructions from https://www.spigotmc.org/go/outdated-spigot ***");
-+                        System.err.println("*** Please download a new build as per instructions from https://papermc.io/downloads ***"); // Paper
++                        System.err.println("*** Please nag tildearrow about this ***"); // Letter
                          System.err.println("*** Server will start in 20 seconds ***");
                          Thread.sleep(TimeUnit.SECONDS.toMillis(20));
                      }
@@ -84,7 +84,7 @@ index 335120afc88a8fc1543c2e6df516fd728e3ab032..d5863b0b06384b25eaa33572fa026497
      private WatchdogThread(long timeoutTime, boolean restart)
      {
 -        super( "Spigot Watchdog Thread" );
-+        super( "Paper Watchdog Thread" );
++        super( "Letter Watchdog Thread" );
          this.timeoutTime = timeoutTime;
          this.restart = restart;
      }
@@ -93,16 +93,16 @@ index 335120afc88a8fc1543c2e6df516fd728e3ab032..d5863b0b06384b25eaa33572fa026497
                  Logger log = Bukkit.getServer().getLogger();
                  log.log( Level.SEVERE, "------------------------------" );
 -                log.log( Level.SEVERE, "The server has stopped responding! This is (probably) not a Spigot bug." );
-+                log.log( Level.SEVERE, "The server has stopped responding! This is (probably) not a Paper bug." ); // Paper
++                log.log( Level.SEVERE, "The server has stopped responding! This may be a Paper bug, which has been worked around in Letter, but if it has something about unsafe park, please nag tildearrow to remove the offending patch." ); // Letter
                  log.log( Level.SEVERE, "If you see a plugin in the Server thread dump below, then please report it to that author" );
                  log.log( Level.SEVERE, "\t *Especially* if it looks like HTTP or MySQL operations are occurring" );
                  log.log( Level.SEVERE, "If you see a world save or edit, then it means you did far more than your server can handle at once" );
                  log.log( Level.SEVERE, "\t If this is the case, consider increasing timeout-time in spigot.yml but note that this will replace the crash with LARGE lag spikes" );
 -                log.log( Level.SEVERE, "If you are unsure or still think this is a Spigot bug, please report to https://www.spigotmc.org/" );
-+                log.log( Level.SEVERE, "If you are unsure or still think this is a Paper bug, please report this to https://github.com/PaperMC/Paper/issues" );
++                log.log( Level.SEVERE, "If you are unsure or still think this is a Letter bug, please report this to https://github.com/PaperMC/Paper/issues/5980" );
                  log.log( Level.SEVERE, "Be sure to include ALL relevant console errors and Minecraft crash reports" );
 -                log.log( Level.SEVERE, "Spigot version: " + Bukkit.getServer().getVersion() );
-+                log.log( Level.SEVERE, "Paper version: " + Bukkit.getServer().getVersion() );
++                log.log( Level.SEVERE, "Letter version: " + Bukkit.getServer().getVersion() );
                  //
                  if ( net.minecraft.world.level.Level.lastPhysicsProblem != null )
                  {
@@ -111,7 +111,7 @@ index 335120afc88a8fc1543c2e6df516fd728e3ab032..d5863b0b06384b25eaa33572fa026497
                  //
                  log.log( Level.SEVERE, "------------------------------" );
 -                log.log( Level.SEVERE, "Server thread dump (Look for plugins here before reporting to Spigot!):" );
-+                log.log( Level.SEVERE, "Server thread dump (Look for plugins here before reporting to Paper!):" ); // Paper
++                log.log( Level.SEVERE, "Server thread dump (Look for plugins here before reporting to Letter!):" ); // Letter
                  WatchdogThread.dumpThread( ManagementFactory.getThreadMXBean().getThreadInfo( MinecraftServer.getServer().serverThread.getId(), Integer.MAX_VALUE ), log );
                  log.log( Level.SEVERE, "------------------------------" );
                  //
