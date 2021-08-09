@@ -1,7 +1,7 @@
 Letter
 ===========
 
-Medium performance Paper fork that aims to not hang by disabling async chunks while still providing the Paper API.
+Medium performance Paper fork that aims to not [hang](https://github.com/PaperMC/Paper/issues/5980) by disabling async chunks while still providing the Paper API.
 
 
 **Support and Project Discussion:**
@@ -10,21 +10,16 @@ None
 
 How To (Server Admins)
 ------
-Paperclip is a jar file that you can download and run just like a normal jar file.
+Build from source. Letterclip isn't a thing yet :<
 
-Download Paper from our [downloads page](https://papermc.io/downloads).
-
-Run the Paperclip jar directly from your server. Just like old times
-
-  * Documentation on using Paper: [paper.readthedocs.io](https://paper.readthedocs.io/)
-  * For a sneak peak on upcoming features, [see here](https://github.com/PaperMC/Paper/projects)
+  * Documentation on using Letter (identical to Paper): [paper.readthedocs.io](https://paper.readthedocs.io/)
 
 How To (Plugin Developers)
 ------
  * See our API patches [here](patches/api)
- * See upcoming, pending, and recently added API [here](https://github.com/PaperMC/Paper/projects/6)
- * Paper API javadocs here: [papermc.io/javadocs](https://papermc.io/javadocs/)
- * Maven Repo (for paper-api):
+ * Chunk priority patch removed until [this issue is fixed](https://github.com/PaperMC/Paper/issues/5980)
+ * Letter API javadocs here: [tildearrow.org/letterdocs](https://tildearrow.org/letterdocs/)
+ * Maven Repo (for paper-api) (should be compatible):
 ```xml
 <repository>
     <id>papermc</id>
@@ -60,7 +55,7 @@ dependencies {
 
 How To (Compiling Jar From Source)
 ------
-To compile Paper, you need JDK 16 and an internet connection.
+To compile Letter, you need JDK 16 and an internet connection.
 
 Clone this repo, run `./gradlew applyPatches`, then `./gradlew reobfJar` from your terminal. You can find the compiled jar in the `Paper-Server/build/libs` directory.
 
@@ -68,16 +63,39 @@ To get a full list of tasks, run `./gradlew tasks`.
 
 How To (Pull Request)
 ------
-See [Contributing](CONTRIBUTING.md)
+Issue pull requests on the official Paper project. This fork is merely an interim workaround for 5980.
 
 Special Thanks To:
 -------------
 
-[![YourKit-Logo](https://www.yourkit.com/images/yklogo.png)](https://www.yourkit.com/)
+**Primorior**
 
-[YourKit](https://www.yourkit.com/), makers of the outstanding java profiler, support open source projects of all kinds with their full featured [Java](https://www.yourkit.com/java/profiler) and [.NET](https://www.yourkit.com/.net/profiler) application profilers. We thank them for granting Paper an OSS license so that we can make our software the best it can be.
+for finding the issue, and consistently reporting no improvement despite updating.
 
-[<img src="https://user-images.githubusercontent.com/21148213/121807008-8ffc6700-cc52-11eb-96a7-2f6f260f8fda.png" alt="" width="150">](https://www.jetbrains.com)
+**Brokkonaut**
 
-[JetBrains](https://www.jetbrains.com/), creators of the IntelliJ IDEA, supports Paper with one of their [Open Source Licenses](https://www.jetbrains.com/opensource/). IntelliJ IDEA is the recommended IDE for working with Paper, and most of the Paper team uses it.
+for investigating the issue and determining the potential root cause.
 
+**All reporters involved in** [the bug report](https://github.com/PaperMC/Paper/issues/5980)
+
+including countless duplicates and comments in efforts to bring the bug report to attention.
+
+**PaperMC team**
+
+for the server software. Spigot is a headache.
+PlayerDeathEvent cancellation, PlayerAdvancementCriterionGrantEvent and EntityKnockbackByEntityEvent are a godsend.
+
+No Thanks To:
+-------------
+
+**electronicboy**
+
+for partially dismissing the issue, closing bug reports and not listening to users.
+
+**mechoriet**
+
+for the buggy [patch](https://github.com/PaperMC/Paper/pull/5829)
+
+**PaperMC team**
+
+for not marking the issue as **we must go deeper** despite it being a critical top-priority difficult bug.
