@@ -58,12 +58,12 @@ index 620b9490e5f159080e50289d127404a1b56adbef..a8bdaaeaa1a9316848416f0533739b9b
 +            </PatternLayout>
          </TerminalConsole>
          <RollingRandomAccessFile name="File" fileName="logs/latest.log" filePattern="logs/%d{yyyy-MM-dd}-%i.log.gz">
--            <PatternLayout pattern="[%d{HH:mm:ss}] [%t/%level]: %minecraftFormatting{%msg}{strip}%n" />
+-            <PatternLayout pattern="[%d{HH:mm:ss}] [%t/%level]: %minecraftFormatting{%msg}%n" />
 +            <PatternLayout>
-+                <LoggerNamePatternSelector defaultPattern="[%d{HH:mm:ss}] [%t/%level]: [%logger] %minecraftFormatting{%msg}{strip}%n">
++                <LoggerNamePatternSelector defaultPattern="[%d{HH:mm:ss}] [%t/%level]: [%logger] %minecraftFormatting{%msg}%n">
 +                    <!-- Log root, Minecraft, Mojang and Bukkit loggers without prefix -->
 +                    <PatternMatch key=",net.minecraft.,Minecraft,com.mojang."
-+                                  pattern="[%d{HH:mm:ss}] [%t/%level]: %minecraftFormatting{%msg}{strip}%n" />
++                                  pattern="[%d{HH:mm:ss}] [%t/%level]: %minecraftFormatting{%msg}%n" />
 +                </LoggerNamePatternSelector>
 +            </PatternLayout>
              <Policies>

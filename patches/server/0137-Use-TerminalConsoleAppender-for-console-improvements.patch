@@ -516,7 +516,7 @@ index 722ca84968cbbbdeffd09939abff0cccd0a84010..620b9490e5f159080e50289d127404a1
 +        </TerminalConsole>
          <RollingRandomAccessFile name="File" fileName="logs/latest.log" filePattern="logs/%d{yyyy-MM-dd}-%i.log.gz">
 -            <PatternLayout pattern="[%d{HH:mm:ss}] [%t/%level]: %msg%n" />
-+            <PatternLayout pattern="[%d{HH:mm:ss}] [%t/%level]: %minecraftFormatting{%msg}{strip}%n" />
++            <PatternLayout pattern="[%d{HH:mm:ss}] [%t/%level]: %minecraftFormatting{%msg}%n" />
              <Policies>
                  <TimeBasedTriggeringPolicy />
                  <OnStartupTriggeringPolicy />
